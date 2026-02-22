@@ -1,20 +1,145 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BibliaFlix - Streaming de Fé e Sabedoria</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="description"
+        content="A maior plataforma de streaming de conteúdo bíblico: vídeos, séries e livros em espanhol e português.">
+
+    <!-- Google Fonts: Inter e Bebas Neue -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="kids-mode">
     <header id="navbar">
         <div class="nav-container">
             <div class="logo">BIBLIA<span>FLIX</span></div>
-            <nav><ul class="nav-links"><li>Inicio</li></ul></nav>
+            <nav>
+                <ul class="nav-links">
+                    <li id="nav-home">Inicio</li>
+                    <li id="nav-series">Series</li>
+                    <li id="nav-books">Dibujos</li>
+                    <li id="nav-kids">Aprender</li>
+                    <li id="nav-bot" style="color: var(--accent-secondary);"><i data-lucide="sparkles"></i> <b>Crea
+                            Historia</b></li>
+                </ul>
+            </nav>
+            <div class="nav-actions">
+                <i data-lucide="search"></i>
+                <div class="user-profile">
+                    <i data-lucide="smile"></i>
+                </div>
+            </div>
         </div>
     </header>
-    <main id="main-content"></main>
+
+    <main>
+        <section id="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 id="hero-title">MOISÉS</h1>
+                <p id="hero-description">La gran aventura de cómo Dios ayudó a su pueblo a cruzar el mar.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary"><i data-lucide="play-circle"></i> <span id="btn-play">¡A
+                            Ver!</span></button>
+                    <button class="btn btn-secondary"><i data-lucide="info"></i> <span id="btn-info">Saber
+                            Más</span></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-rows" id="main-content">
+            <!-- As linhas de conteúdo serão geradas dinamicamente pelo JS -->
+        </section>
+    </main>
+
+    <!-- Modal Cinemático de História -->
+    <div id="modal-story" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-container">
+                <div class="modal-header">
+                    <h2 id="modal-title"></h2>
+                </div>
+                <div class="modal-media-container">
+                    <img id="modal-img" class="modal-img-cinematic" src="" alt="">
+                    <div class="modal-story-overlay">
+                        <p id="modal-narration" class="narration-text"></p>
+                        <div class="audio-info">
+                            <i data-lucide="music"></i>
+                            <span id="modal-audio"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Paywall (Trava de Segurança) -->
+    <div id="modal-paywall" class="modal">
+        <div class="modal-content paywall-content">
+            <span class="close-modal">&times;</span>
+            <div class="paywall-body">
+                <i data-lucide="lock" class="paywall-icon"></i>
+                <h2 id="paywall-title">Conteúdo Premium Bíblico</h2>
+                <p id="paywall-desc">Assine o BibliaFlix para desbloquear todo o catálogo épico, narrações completas e
+                    livros em PDF para toda a família.</p>
+                <div class="paywall-benefits">
+                    <ul>
+                        <li><i data-lucide="check-circle"></i> Acesso ilimitado a vídeos e livros</li>
+                        <li><i data-lucide="check-circle"></i> Disponível em Português e Espanhol</li>
+                        <li><i data-lucide="check-circle"></i> Sem anúncios, cancele quando quiser</li>
+                    </ul>
+                </div>
+                <button id="btn-subscribe" class="btn btn-primary btn-large">Assinar Agora</button>
+                <p class="paywall-login">Já é assinante? <a href="#">Faça Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal do Bot Criador de Histórias (Simulador IA) -->
+    <div id="modal-creator" class="modal">
+        <div class="modal-content" style="max-width: 600px; overflow: visible;">
+            <span class="close-modal">&times;</span>
+            <div class="creator-body">
+                <i data-lucide="bot" class="bot-icon"></i>
+                <h2>Crea tu propia Historia</h2>
+                <p>Nuestra IA escribirá una aventura divina y creará arte 2D mágico para ti.</p>
+                <input type="text" id="ai-prompt-input" class="creator-input"
+                    placeholder="Ej: La historia de Jonás y la Ballena">
+                <button id="btn-generate-ai" class="btn btn-secondary btn-large"><i data-lucide="wand-2"></i> ¡Generar
+                    Magia!</button>
+                <div id="ai-loader" class="generation-loader">
+                    <i data-lucide="loader-2"></i> <span>La IA está dibujando y escribiendo... (Esto toma unos
+                        segundos)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">BIBLIA<span>FLIX</span></div>
+            <p>&copy; 2026 BibliaFlix. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Áudio de Fundo (Exemplo de trilha épica/suave) -->
+    <audio id="bg-music-player" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
     <script src="app.js"></script>
 </body>
+
 </html>
